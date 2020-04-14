@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CompletarTarefa {
 
-    public void completarTarefa(Tarefa tarefa) {
+    public void executar(Tarefa tarefa) {
         tarefa.setCompleta(true);
     }
 }

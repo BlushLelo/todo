@@ -1,10 +1,7 @@
 package menu;
 
 import dominio.Tarefa;
-import funcionalidades.CadastrarTarefa;
-import funcionalidades.CompletarTarefa;
-import funcionalidades.EditarDescricaoDeTarefaIncompleta;
-import funcionalidades.ExibirTarefasIncompletas;
+import funcionalidades.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +9,22 @@ import java.util.Scanner;
 public class Menu {
     Scanner scanner = new Scanner(System.in);
     List<Tarefa> listaDeTarefas;
+    ExibirTarefasIncompletas exibirTarefasIncompletas;
+    ExibirTarefasCompletas exibirTarefasCompletas;
+    EditarDescricaoDeTarefaIncompleta editarDescricaoDeTarefaIncompleta;
+    CadastrarTarefa cadastrarTarefa;
+    CompletarTarefa completarTarefa;
+    RemoverTarefaIncompleta removerTarefaIncompleta;
+
 
     public Menu(List<Tarefa> listaDeTarefas) {
         this.listaDeTarefas = listaDeTarefas;
+        exibirTarefasIncompletas = new ExibirTarefasIncompletas(this.listaDeTarefas);
+        editarDescricaoDeTarefaIncompleta = new EditarDescricaoDeTarefaIncompleta();
+        cadastrarTarefa = new CadastrarTarefa(listaDeTarefas);
+        completarTarefa = new CompletarTarefa();
+        removerTarefaIncompleta = new RemoverTarefaIncompleta(this.listaDeTarefas);
+        exibirTarefasCompletas = new ExibirTarefasCompletas(this.listaDeTarefas);
     }
 
     public void printarMenuInicial() {
@@ -27,7 +37,6 @@ public class Menu {
         System.out.println("6- Desarquivar tarefa");
         System.out.println("7- Exibir tarefas completadas");
         System.out.println("8- Exibir tarefas incompletas");
-        System.out.println("9- Exibir tarefas incompletas");
         System.out.println("10- Sair");
         System.out.print("Opcao: ");
         int opcaoSelecionada = scanner.nextInt();
@@ -38,31 +47,45 @@ public class Menu {
                 scanner.nextLine();
                 String descricaoDaTarefa = scanner.nextLine();
                 Tarefa tarefa = new Tarefa(descricaoDaTarefa, false);
-                CadastrarTarefa cadastrarTarefa = new CadastrarTarefa(listaDeTarefas);
-                cadastrarTarefa.cadastrar(tarefa);
+                cadastrarTarefa.executar(tarefa);
                 printarMenuInicial();
                 break;
             }
             case 2: {
-                ExibirTarefasIncompletas exibirTarefasIncompletas = new ExibirTarefasIncompletas(listaDeTarefas);
-                exibirTarefasIncompletas.exibirTarefas();
+                exibirTarefasIncompletas.executar();
                 System.out.print("Qual tarefa deseja marcar como completa: ");
                 int tarefaIndice = scanner.nextInt();
-                CompletarTarefa completarTarefa = new CompletarTarefa();
-                completarTarefa.completarTarefa(listaDeTarefas.get(tarefaIndice));
+                completarTarefa.executar(listaDeTarefas.get(tarefaIndice));
                 printarMenuInicial();
                 break;
             }
             case 3: {
-                ExibirTarefasIncompletas exibirTarefasIncompletas = new ExibirTarefasIncompletas(listaDeTarefas);
-                exibirTarefasIncompletas.exibirTarefas();
+                exibirTarefasIncompletas.executar();
                 System.out.print("Qual tarefa deseja alterar a descricao: ");
                 int tarefaIndice = scanner.nextInt();
                 scanner.nextLine();
                 System.out.print("Digite a nova descricao da tarefa: ");
                 String novaDescricao = scanner.nextLine();
-                EditarDescricaoDeTarefaIncompleta editarDescricaoDeTarefaIncompleta = new EditarDescricaoDeTarefaIncompleta();
-                editarDescricaoDeTarefaIncompleta.editarDescricao(listaDeTarefas.get(tarefaIndice), novaDescricao);
+                editarDescricaoDeTarefaIncompleta.executar(listaDeTarefas.get(tarefaIndice), novaDescricao);
+                printarMenuInicial();
+                break;
+            }
+            case 4: {
+                exibirTarefasIncompletas.executar();
+                System.out.print("Qual tarefa deseja remover: ");
+                int tarefaIndice = scanner.nextInt();
+                scanner.nextLine();
+                removerTarefaIncompleta.executar(tarefaIndice);
+                printarMenuInicial();
+                break;
+            }
+            case 7: {
+                exibirTarefasCompletas.executar();
+                printarMenuInicial();
+                break;
+            }
+            case 8: {
+                exibirTarefasIncompletas.executar();
                 printarMenuInicial();
                 break;
             }

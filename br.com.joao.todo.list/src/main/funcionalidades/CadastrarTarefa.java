@@ -12,7 +12,7 @@ public class CadastrarTarefa {
         this.listaDeTarefas = listaDeTarefas;
     }
 
-    public void cadastrar(Tarefa tarefa) {
+    public void executar(Tarefa tarefa) {
         listaDeTarefas.add(tarefa);
     }
 }
