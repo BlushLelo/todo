@@ -58,6 +58,7 @@ public class Menu {
                 exibirTarefasIncompletas.exibirTarefas();
                 System.out.print("Qual tarefa deseja alterar a descricao: ");
                 int tarefaIndice = scanner.nextInt();
+                scanner.nextLine();
                 System.out.print("Digite a nova descricao da tarefa: ");
                 String novaDescricao = scanner.nextLine();
                 EditarDescricaoDeTarefaIncompleta editarDescricaoDeTarefaIncompleta = new EditarDescricaoDeTarefaIncompleta();
