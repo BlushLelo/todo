@@ -79,6 +79,14 @@ public class Menu {
                 printarMenuInicial();
                 break;
             }
+            case 5: {
+                //TODO - Implementar funcionalidade de arquivar uma tarefa incompleta
+                break;
+            }
+            case 6: {
+                //TODO - Implementar funcionalidade para recuperar uma tarefa arquivada
+                break;
+            }
             case 7: {
                 exibirTarefasCompletas.executar();
                 printarMenuInicial();
